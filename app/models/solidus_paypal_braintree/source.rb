@@ -20,12 +20,6 @@ module SolidusPaypalBraintree
     delegate :last_4, :card_type, :email,
       to: :braintree_payment_method, allow_nil: true
 
-    # Aliases to match Spree::CreditCard's interface
-    alias_method :last_digits, :last_4
-    alias_method :month, :expiration_month
-    alias_method :year, :expiration_year
-    alias_method :cc_type, :card_type
-
     def expiration_month
       if self.paypal?
         return nil
@@ -41,6 +35,12 @@ module SolidusPaypalBraintree
         braintree_payment_method.expiration_year
       end
     end
+
+    # Aliases to match Spree::CreditCard's interface
+    alias_method :last_digits, :last_4
+    alias_method :month, :expiration_month
+    alias_method :year, :expiration_year
+    alias_method :cc_type, :card_type
 
     # we are not currenctly supporting an "imported" flag
     def imported
